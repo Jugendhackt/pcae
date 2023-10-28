@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vite App</title>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+    <script src="http://netbeast.github.io/colorsys/browser.js"></script>
+</head>
+<body>
+<div id="map"></div>
+
+<script>
+    const fetchDataPoints = async () => {
+
+        let headers = new Headers();
+        headers.set('Authorization', 'Basic ' + btoa("admin" + ":" + "admin"));
+        headers.set('Content-Type', 'application/json')
+        const response = await fetch('https://api-pcae.siefke.org/retrieve/between', {
+            headers: headers,
+            method: "POST",
+            body: JSON.stringify({
+                minLat: -10.0,
+                maxLat: 600.0,
+                minLon: -10.0,
+                maxLon: 1100.0
+            })
+        });
+        return response.json();
+    }
+
+    const dataCOColor = (co) => {
+        let lowCO = 0
+        let highCO = 1024
+        co = Math.min(Math.max(co, lowCO), highCO)
+        let coScale = (co - lowCO) / (highCO - lowCO)
+        return colorsys.hsv2Hex({h: 120 - (coScale * 120), s: 100, v: 100})
+    }
+
+
+    var map = L.map('map').setView([53.563859881246564, 9.962454321792514], 13);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    fetchDataPoints().then(dataPoints => {
+        console.log(dataPoints)
+        dataPoints.forEach(dP => {
+            var circle = L.circle([dP.latitude, dP.longitude], {
+                border: "none",
+                color: "green",
+                fillColor: dataCOColor(dP.co_value),
+                fillOpacity: 0.5,
+                radius: 50
+            }).addTo(map);
+        })
+    }).catch(e => console.log(e))
+</script>
+
+</body>
+</html>
+
+
+<style>
+    #map {
+        width: 100vw;
+        height: 100vh;
+    }
+</style>
