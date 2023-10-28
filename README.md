@@ -9,10 +9,10 @@
 body:
 ```json
 {
-  "timestamp": Timestamp,
-  "co_value": Int,
-  longitude: Double,
-  latitude: Double
+  "timestamp": "Timestamp",
+  "co_value": "Int",
+  "longitude": "Double",
+  "latitude": "Double"
 }
 ```
 
@@ -29,11 +29,11 @@ response:
 ```json
 [
   {
-    "id": Long,
-    "longitude": Double,
-    "latitude": Double,
-    "co_value": Int,
-    timestamp: Timestamp
+    "id": "Long",
+    "longitude": "Double",
+    "latitude": "Double",
+    "co_value": "Int",
+    "timestamp": "Timestamp"
   }
 ]
 ```
@@ -44,10 +44,10 @@ body:
 
 ```json
 {
-  minLat: Double,
-  minLon: Double,
-  maxLat: Double,
-  maxLon: Double
+  "minLat": "Double",
+  "minLon": "Double",
+  "maxLat": "Double",
+  "maxLon": "Double"
 }
 
 response:
@@ -55,11 +55,11 @@ response:
 ```json
 [
   {
-    "id": Long,
-    "longitude": Double,
-    "latitude": Double,
-    "co_value": Int,
-    timestamp: Timestamp
+    "id": "Long",
+    "longitude": "Double",
+    "latitude": "Double",
+    "co_value": "Int",
+    "timestamp": "Timestamp"
   }
 ]
 ```
