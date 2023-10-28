@@ -49,6 +49,7 @@ body:
   "maxLat": "Double",
   "maxLon": "Double"
 }
+```
 
 response:
 
