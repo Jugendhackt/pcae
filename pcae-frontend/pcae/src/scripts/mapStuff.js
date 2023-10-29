@@ -1,18 +1,4 @@
 let fetchDataPoints = async () => {
-    /*return [
-        {
-            latitude: 53.563859881246564,
-            longitude: 9.962454321792514,
-            coValue: 9,
-        },
-        {
-            latitude: 53.562593746350764,
-            longitude: 9.959834482757907,
-            coValue: 3,
-        },
-    ];*/
-
-    //ip: 172.16.116.204
 
     let headers = new Headers();
     headers.set('Authorization', 'Basic ' + btoa("admin" + ":" + "admin"));
@@ -31,8 +17,8 @@ let fetchDataPoints = async () => {
 }
 
 let dataCOColor = (co) => {
-    let lowCO = 0
-    let highCO = 1024
+    let lowCO = 300
+    let highCO = 750
     co = Math.min(Math.max(co, lowCO),highCO)
     let coScale = (co-lowCO)/(highCO-lowCO)
     return colorsys.hsv2Hex({h: 120-(coScale*120), s: 100, v: 100})
