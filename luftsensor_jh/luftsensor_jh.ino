@@ -3,7 +3,7 @@
 #include <ArduinoJson.h>
 
 #define ARR_SIZE 800
-const int SIM_SIZE = 9; //alster=15 anders=9
+const int SIM_SIZE = 15; //alster=15 anders=9
 
 int Sensorwert;
 
@@ -45,17 +45,18 @@ void setup() {
   double  lats_anders [] = {53.58117366176166, 53.57265652190565, 53.57250434992271, 53.57722993909611, 53.57761144145394, 53.57911135934709, 53.580899470883544, 53.58126429629589, 53.58138590167325};
   double lons_anders [] = {9.988657382791484, 9.988604077370479, 9.981851887404869, 9.981865852584392, 9.981479959370978, 9.981798573861264, 9.9817985709493, 9.981790969531358, 9.987541540782095};
 
-  current_point.latitude = lats_anders[0];
-  current_point.longitude = lons_anders[0];
+  current_point.latitude = lats_alster[0];
+  current_point.longitude = lons_alster[0];
 
   for (int i = 0; i < SIM_SIZE; i++) {
-    sim_points[i].latitude = lats_anders[i];
-    sim_points[i].longitude = lons_anders[i];
+    sim_points[i].latitude = lats_alster[i];
+    sim_points[i].longitude = lons_alster[i];
   }
 
   Serial.begin(115200);                          // Damit unsere Werte später im seriellen Monitor angezeigt werden können, legen wir zuerst die Baudrate 9600 fest.
   WiFi.begin("betahaus2.0", "betahaus10?");
   pinMode( 0 , INPUT);                         // Pin 0 dient nun als Input
+  delay(10000); //sensor warmup time
 
 }
 
